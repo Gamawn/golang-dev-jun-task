@@ -25,7 +25,7 @@ func init() {
 // return result
 func GetInfo(apiString string) (*model.Response, error) {
 
-	req.SetRequestURI(apiString)
+	req.SetRequestURI("http://data.egov.kz/api/v4/park_taxi/data?apiKey=" + apiString)
 	req.Header.SetMethod("GET")
 
 	if err := client.Do(req, resp); err != nil {
