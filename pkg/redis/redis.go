@@ -6,11 +6,11 @@ import (
 	"github.com/go-redis/redis/v9"
 )
 
-func NewClient() (*redis.Client, error) {
+func NewClient(addr, password string) (*redis.Client, error) {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Addr:     addr,
+		Password: password,
+		DB:       0, // use default DB
 	})
 
 	ctx := context.Background()

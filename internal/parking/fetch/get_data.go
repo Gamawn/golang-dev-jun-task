@@ -35,7 +35,7 @@ func GetInfo(apiString string) (*model.Response, error) {
 	var result model.Response
 
 	if err := easyjson.Unmarshal(resp.Body(), &result); err != nil {
-		return nil, err
+		return nil, nil
 	}
 
 	return &result, nil

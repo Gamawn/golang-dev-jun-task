@@ -34,17 +34,8 @@ func easyjson8915695aDecodeAppInternalParkingModel(in *jlexer.Lexer, out *Respon
 			*out = (*out)[:0]
 		}
 		for !in.IsDelim(']') {
-			var v1 struct {
-				ID           string `json:"id"`
-				Dislocation  string `json:"dislocation"`
-				TrafficSigns string `json:"traffic_signs"`
-				Street       string `json:"street,omitempty"`
-				Seats        string `json:"seats"`
-				Stopping     string `json:"stopping"`
-				ParkingBay   string `json:"parking_bay"`
-				Avenue       string `json:"avenue,omitempty"`
-			}
-			easyjson8915695aDecode(in, &v1)
+			var v1 Parking
+			(v1).UnmarshalEasyJSON(in)
 			*out = append(*out, v1)
 			in.WantComma()
 		}
@@ -63,7 +54,7 @@ func easyjson8915695aEncodeAppInternalParkingModel(out *jwriter.Writer, in Respo
 			if v2 > 0 {
 				out.RawByte(',')
 			}
-			easyjson8915695aEncode(out, v3)
+			(v3).MarshalEasyJSON(out)
 		}
 		out.RawByte(']')
 	}
@@ -92,16 +83,7 @@ func (v *Response) UnmarshalJSON(data []byte) error {
 func (v *Response) UnmarshalEasyJSON(l *jlexer.Lexer) {
 	easyjson8915695aDecodeAppInternalParkingModel(l, v)
 }
-func easyjson8915695aDecode(in *jlexer.Lexer, out *struct {
-	ID           string `json:"id"`
-	Dislocation  string `json:"dislocation"`
-	TrafficSigns string `json:"traffic_signs"`
-	Street       string `json:"street,omitempty"`
-	Seats        string `json:"seats"`
-	Stopping     string `json:"stopping"`
-	ParkingBay   string `json:"parking_bay"`
-	Avenue       string `json:"avenue,omitempty"`
-}) {
+func easyjson8915695aDecodeAppInternalParkingModel1(in *jlexer.Lexer, out *Parking) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -146,16 +128,7 @@ func easyjson8915695aDecode(in *jlexer.Lexer, out *struct {
 		in.Consumed()
 	}
 }
-func easyjson8915695aEncode(out *jwriter.Writer, in struct {
-	ID           string `json:"id"`
-	Dislocation  string `json:"dislocation"`
-	TrafficSigns string `json:"traffic_signs"`
-	Street       string `json:"street,omitempty"`
-	Seats        string `json:"seats"`
-	Stopping     string `json:"stopping"`
-	ParkingBay   string `json:"parking_bay"`
-	Avenue       string `json:"avenue,omitempty"`
-}) {
+func easyjson8915695aEncodeAppInternalParkingModel1(out *jwriter.Writer, in Parking) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -200,4 +173,28 @@ func easyjson8915695aEncode(out *jwriter.Writer, in struct {
 		out.String(string(in.Avenue))
 	}
 	out.RawByte('}')
+}
+
+// MarshalJSON supports json.Marshaler interface
+func (v Parking) MarshalJSON() ([]byte, error) {
+	w := jwriter.Writer{}
+	easyjson8915695aEncodeAppInternalParkingModel1(&w, v)
+	return w.Buffer.BuildBytes(), w.Error
+}
+
+// MarshalEasyJSON supports easyjson.Marshaler interface
+func (v Parking) MarshalEasyJSON(w *jwriter.Writer) {
+	easyjson8915695aEncodeAppInternalParkingModel1(w, v)
+}
+
+// UnmarshalJSON supports json.Unmarshaler interface
+func (v *Parking) UnmarshalJSON(data []byte) error {
+	r := jlexer.Lexer{Data: data}
+	easyjson8915695aDecodeAppInternalParkingModel1(&r, v)
+	return r.Error()
+}
+
+// UnmarshalEasyJSON supports easyjson.Unmarshaler interface
+func (v *Parking) UnmarshalEasyJSON(l *jlexer.Lexer) {
+	easyjson8915695aDecodeAppInternalParkingModel1(l, v)
 }
